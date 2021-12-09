@@ -14,18 +14,23 @@ def main():
         while True:
             data = client_socket.recv(1024).decode()
             if data == 'TIME':
-                client_socket.send(datetime.now().strftime(
-                    '%H : %M : %S, The year is - %Y').encode())
+                send_message(client_socket, datetime.now().strftime(
+                    '%H : %M : %S -> the year is: %Y'))
             elif data == 'NAME':
-                client_socket.send(gethostname().encode())
+                send_message(client_socket, gethostbyname())
             elif data == 'RAND':
-                client_socket.send(str(randrange(1, 11)).encode())
+                send_message(client_socket, str(randrange(1, 11)))
             elif data == 'EXIT':
-                client_socket.send('socket-closed'.encode())
+                send_message(client_socket, 'socket-closed')
                 client_socket.close()
                 break
             else:
-                client_socket.send('INVAILD COMMAND'.encode())
+                send_message(client_socket, 'INVAILD COMMAND')
+
+
+def send_message(client_socket, messege):
+    client_socket.send(str(len(messege)).encode())
+    client_socket.send(messege.encode())
 
 
 if __name__ == '__main__':

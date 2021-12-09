@@ -8,7 +8,9 @@ def main():
     my_socket.connect(("localhost", 11111))
     while True:
         my_socket.send(input('Enter: ').encode())
-        data_from_server = my_socket.recv(1024).decode()
+        data_length = int(my_socket.recv(4).decode())
+        print(data_length)
+        data_from_server = my_socket.recv(data_length).decode()
         print(data_from_server)
         if data_from_server == 'socket-closed':
             my_socket.close()
