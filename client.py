@@ -11,7 +11,7 @@ def main():
         data_from_server = my_socket.recv(1024).decode()
         print(data_from_server)
         if data_from_server == 'socket-closed':
-            my_socket.close
+            my_socket.close()
             break
 
 
