@@ -2,14 +2,21 @@ from socket import *
 from os import system as s
 
 
+MAX_BYTES = 1024
+LENGTH_FOR_MESSAGE = len(str(MAX_BYTES))
+
+
 def send_message(socket, messege):
     length = len(messege)
-    socket.send(f"{'O' * (4 - len(str(length)))}{length}".encode())
+    socket.send(
+        f"{'O' * (LENGTH_FOR_MESSAGE - len(str(length)))}{length}".encode())
+    print(f"{'O' * (LENGTH_FOR_MESSAGE - len(str(length)))}{length}")
     socket.send(messege.encode())
 
 
 def recive_message(my_socket):
-    data_length = int(my_socket.recv(4).decode().replace('O', ''))
+    data_length = int(my_socket.recv(
+        LENGTH_FOR_MESSAGE).decode().replace('O', ''))
     return my_socket.recv(data_length).decode()
 
 
