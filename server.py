@@ -17,7 +17,7 @@ def main():
                 send_message(client_socket, datetime.now().strftime(
                     '%H : %M : %S -> the year is: %Y'))
             elif data == 'NAME':
-                send_message(client_socket, gethostbyname())
+                send_message(client_socket, gethostname())
             elif data == 'RAND':
                 send_message(client_socket, str(randrange(1, 11)))
             elif data == 'EXIT':
@@ -29,7 +29,8 @@ def main():
 
 
 def send_message(client_socket, messege):
-    client_socket.send(str(len(messege)).encode())
+    length = len(messege)
+    client_socket.send(f"{'O' * (4 - len(str(length)))}{length}".encode())
     client_socket.send(messege.encode())
 
 
