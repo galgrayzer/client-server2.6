@@ -4,6 +4,17 @@ from random import randrange
 from os import system as s
 
 
+def send_message(socket, messege):
+    length = len(messege)
+    socket.send(f"{'O' * (4 - len(str(length)))}{length}".encode())
+    socket.send(messege.encode())
+
+
+def recive_message(my_socket):
+    data_length = int(my_socket.recv(4).decode().replace('O', ''))
+    return my_socket.recv(data_length).decode()
+
+
 def main():
     s('cls')
     with socket(AF_INET, SOCK_STREAM) as server:
@@ -12,7 +23,7 @@ def main():
         client_socket, client_adress = server.accept()
         print(f'new connection from {client_adress}')
         while True:
-            data = client_socket.recv(1024).decode()
+            data = recive_message(client_socket)
             if data == 'TIME':
                 send_message(client_socket, datetime.now().strftime(
                     '%H : %M : %S -> the year is: %Y'))
@@ -26,12 +37,6 @@ def main():
                 break
             else:
                 send_message(client_socket, 'INVAILD COMMAND')
-
-
-def send_message(client_socket, messege):
-    length = len(messege)
-    client_socket.send(f"{'O' * (4 - len(str(length)))}{length}".encode())
-    client_socket.send(messege.encode())
 
 
 if __name__ == '__main__':
