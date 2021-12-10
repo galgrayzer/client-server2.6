@@ -10,7 +10,6 @@ def send_message(socket, messege):
     length = len(messege)
     socket.send(
         f"{'O' * (LENGTH_FOR_MESSAGE - len(str(length)))}{length}".encode())
-    print(f"{'O' * (LENGTH_FOR_MESSAGE - len(str(length)))}{length}")
     socket.send(messege.encode())
 
 

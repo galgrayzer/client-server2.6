@@ -12,7 +12,6 @@ def send_message(socket, messege):
     length = len(messege)
     socket.send(
         f"{'O' * (LENGTH_FOR_MESSAGE - len(str(length)))}{length}".encode())
-    print(f"{'O' * (LENGTH_FOR_MESSAGE - len(str(length)))}{length}")
     socket.send(messege.encode())
 
 
@@ -26,6 +25,7 @@ def main():
     s('cls')
     with socket(AF_INET, SOCK_STREAM) as server:
         server.bind(("0.0.0.0", 11111))
+        print('server is up and running')
         server.listen()
         client_socket, client_adress = server.accept()
         print(f'new connection from {client_adress}')
