@@ -16,7 +16,7 @@ def main():
             if data == 'TIME':
                 client_socket.send(datetime.now().strftime(
                     '%H : %M : %S, The year is - %Y').encode())
-            elif data == 'NAME':
+            elif data == 'WHORU':
                 client_socket.send(gethostname().encode())
             elif data == 'RAND':
                 client_socket.send(str(randrange(1, 11)).encode())
