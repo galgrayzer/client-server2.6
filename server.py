@@ -34,7 +34,7 @@ def main():
             if data == 'TIME':
                 send_message(client_socket, datetime.now().strftime(
                     '%H : %M : %S -> the year is: %Y'))
-            elif data == 'NAME':
+            elif data == 'WHORU':
                 send_message(client_socket, gethostname())
             elif data == 'RAND':
                 send_message(client_socket, str(randrange(1, 11)))
