@@ -2,20 +2,19 @@ from socket import *
 from os import system as s
 
 
-MAX_BYTES = 1024
-LENGTH_FOR_MESSAGE = len(str(MAX_BYTES))
+MAX_BYTES = 5
 
 
 def send_message(socket, messege):
     length = len(messege)
     socket.send(
-        f"{'O' * (LENGTH_FOR_MESSAGE - len(str(length)))}{length}".encode())
+        f"{'O' * (MAX_BYTES - len(str(length)))}{length}".encode())
     socket.send(messege.encode())
 
 
 def recive_message(my_socket):
     data_length = int(my_socket.recv(
-        LENGTH_FOR_MESSAGE).decode().replace('O', ''))
+        MAX_BYTES).decode().replace('O', ''))
     return my_socket.recv(data_length).decode()
 
 
