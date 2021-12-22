@@ -15,9 +15,12 @@ def send_message(socket, messege):
 
 
 def recive_message(my_socket):
-    data_length = int(my_socket.recv(
-        MAX_BYTES).decode().replace('O', ''))
-    return my_socket.recv(data_length).decode()
+    try:
+        data_length = int(my_socket.recv(
+            MAX_BYTES).decode().replace('O', ''))
+        return my_socket.recv(data_length).decode()
+    except:
+        return 'ERROR'
 
 
 def main():
@@ -30,6 +33,7 @@ def main():
         print(f'new connection from {client_adress}')
         while True:
             data = recive_message(client_socket)
+            print(data)
             if data == 'TIME':
                 send_message(client_socket, datetime.now().strftime(
                     '%H : %M : %S -> the year is: %Y'))

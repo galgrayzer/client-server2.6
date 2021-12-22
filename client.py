@@ -13,9 +13,12 @@ def send_message(socket, messege):
 
 
 def recive_message(my_socket):
-    data_length = int(my_socket.recv(
-        MAX_BYTES).decode().replace('O', ''))
-    return my_socket.recv(data_length).decode()
+    try:
+        data_length = int(my_socket.recv(
+            MAX_BYTES).decode().replace('O', ''))
+        return my_socket.recv(data_length).decode()
+    except:
+        return 'ERROR'
 
 
 def main():
